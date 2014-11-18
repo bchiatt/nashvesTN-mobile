@@ -6,13 +6,13 @@ html
         .buttons
           button.button.button-clear(ng-click='closeDonate()') Close
       ion-content
-        form#payment-form(action='http://nashvestn.herokuapp.com/api/donations', method='POST')
-        //form#payment-form(action='http://localhost:9000/api/donations', method='POST')
+        //form#payment-form(action='http://nashvestn.herokuapp.com/api/donations', method='POST')
+        form#payment-form(action='http://localhost:9000/api/donations', method='POST')
           span.payment-errors
           .li
             label.item.item-input
               span.input-label Amount $
-              input(type='text', size='1', data-stripe='amount', name='amount')
+              input(type='text', size='1', data-stripe='amount', ng-model='donation.amount', name='amount')
             label.item.item-input
               span.input-label Card Number
               input(type='text', size='20', data-stripe='number')

@@ -109,8 +109,10 @@ angular.module('gp-nashvesTN', ['ionic', 'gp-nashvesTN.controllers', 'LocalStora
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');
 })
-.value('apiBaseUrl', 'http://nashvestn.herokuapp.com/api/')
-.value('baseUrl', 'http://nashvestn.herokuapp.com/')
+//.value('apiBaseUrl', 'http://nashvestn.herokuapp.com/api/')
+//.value('baseUrl', 'http://nashvestn.herokuapp.com/')
+.value('apiBaseUrl', 'http://192.168.1.188:9000/api/')
+.value('baseUrl', 'http://192.168.1.188:9000/')
 .factory('OauthLoginService', function($window, localStorageService, baseUrl){
   'use strict';
 

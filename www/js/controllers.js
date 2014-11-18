@@ -1,5 +1,7 @@
 /* global StripeCheckout, Stripe */
 
+// TODO break into modules
+
 angular.module('gp-nashvesTN.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, OauthLoginService, $state){
@@ -165,11 +167,14 @@ angular.module('gp-nashvesTN.controllers', [])
   };
 })
 
-.controller('DonateCtrl', function($scope, $state){
+.controller('DonateCtrl', function($scope, $state, $http, apiBaseUrl){
   'use strict';
+  $scope.donation = {};
 
   // used only for custom stripe forms //
   Stripe.setPublishableKey('pk_test_UKMfyVX6ix2ImBTaTpDqASgl');
+
+  // TODO send form to server and attach token...don't use jquery to select
 
   jQuery(function($){
     $scope.closeDonate = function(){
@@ -190,12 +195,19 @@ angular.module('gp-nashvesTN.controllers', [])
           $form.find('.payment-errors').text(res.error.message);
           $form.find('button').prop('disabled', false);
         } else {
+          console.log('response', res);
           // response contains id and card, which contains additional card details
-          var token = res.id;
+          $scope.donation.token = res.id;
+
           // Insert the token into the form so it gets submitted to the server
-          $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+          $http.post(apiBaseUrl + 'donations/', $scope.donation).then(function(response){
+            console.log(response);
+            //$scope.donations = response.data.donations;
+          });
+
+          //$form.append($('<input type="hidden" name="stripeToken" />').val(token));
           // and submit
-          $form.get(0).submit();
+          //$form.get(0).submit();
         }
       });
 
